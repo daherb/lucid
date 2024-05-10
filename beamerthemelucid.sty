@@ -1,8 +1,41 @@
-\usepackage{tikz}
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{beamerthemelucid}[2024/05/10 Språkbanken-themed, GU-inspired, lucid-based beamer template]
+
+\RequirePackage{tikz}
+\RequirePackage{fontspec}
+\RequirePackage{xcolor}
+
 \usetikzlibrary{calc}
 
+% Flags for dark mode and progress bar
+\newcount\darkMode
+\newcount\showProgressBar
+\newcount\showSlideNumbers
+\newcount\showSlideTotal
+\newcount\showSectionPages
+\newcount\showSectionTitles
+\darkMode=0
+\showProgressBar=0
+\showSlideNumbers=0
+\showSlideTotal=0
+\showSectionPages=0
+\showSectionTitles=0
+% Package options
+\DeclareOption{dark}{\darkMode=1}
+\DeclareOption{progressBar}{\showProgressBar=1}
+\DeclareOption{slideNumbers}{\showSlideNumbers=1}
+\DeclareOption{slideTotal}{\showSlideTotal=1}
+\DeclareOption{sectionPages}{\showSectionPages=1}
+\DeclareOption{sectionTitles}{\showSectionTitles=1}
+\DeclareOption*{\PackageWarning{beamerthemelucid}{Unknown ‘\CurrentOption’}}
+\ProcessOptions\relax
 
-
+\setsansfont{Liberation Sans}[SmallCapsFont={RobotoMono Nerd Font Propo}]
+\ifnum\darkMode=1\relax
+  \usecolortheme{lucid-dark}
+\else
+  \usecolortheme{lucid}
+\fi
 % set colours
 \setbeamercolor{normal text}{fg=TextColor}\usebeamercolor*{normal text}
 \setbeamercolor{alerted text}{fg=PrimaryColor}
@@ -43,10 +76,35 @@
 \setbeamertemplate{sidebar right}{}
 
 % custom draw the title page above
-\setbeamertemplate{title page}{}
+\setbeamertemplate{title page}{
+  \begin{tikzpicture}
+    % set up the entire slide as the canvas
+    \useasboundingbox (30px,0) rectangle(\the\paperwidth,\the\paperheight);
+    % University logo
+    \node[anchor=north west] at (0.75cm,\slideheight+5px){\resizebox{1.5cm}{!}{\insertlogo}};
+    
+    % text (title, subtitle, author, date)
+    \node[anchor=south,text width=\slidewidth-1cm,inner xsep=0.5cm] at (0.5\slidewidth,6.5cm) (title) {\color{TitleColor}\Huge{\inserttitle}};
+    \node[anchor=north east,text width=\slidewidth-1cm,align=right] at (\slidewidth-0.4cm,6cm) (subtitle) {\color{PrimaryColor}\large{\insertsubtitle}};
+    \node[anchor=north east] at (\slidewidth-0.4cm,5cm) (author) {\LARGE\insertauthor};
+    \node[anchor=north east]  at (\slidewidth-0.4cm,4cm) (institute) {\insertinstitute};
+    \node[anchor=north east] at (\slidewidth-0.4cm,3cm) (date) {\large\insertdate};
+    \node[anchor=north west] at (1cm,5cm) (graphics) {\resizebox{!}{3cm}{\inserttitlegraphic}};
+    \node[anchor=south east] at (\slidewidth-0.4cm,10px+0.25cm) (sblogo) {\resizebox{!}{0.5cm}{\spraakbankenlogo}};
+  \end{tikzpicture}
+}
 
 % again, manually draw the frame title above
-\setbeamertemplate{frametitle}{}
+\setbeamertemplate{frametitle}{
+  \begin{tikzpicture}
+    % set up the entire slide as the canvas
+    \useasboundingbox (30px,\slideheight-1cm) rectangle(\slidewidth+5px,\slideheight);
+    % title bar 
+    \fill[color=PrimaryColor] (0, \slideheight-1cm) rectangle(\slidewidth+5px,\slideheight);
+    % slide title
+    \node[anchor=north,text width=\slidewidth-0.75cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{FrameTitleColor}\huge\textbf{\insertframetitle}};
+  \end{tikzpicture}
+}
 
 % disable "Figure:" in the captions
 % TODO: somehow this doesn't work for md-generated slides
@@ -69,8 +127,6 @@
 \setbeamertemplate{quote end}{\vspace{0.5em}}
 
 % progress bar counters
-\newcounter{showProgressBar}
-\setcounter{showProgressBar}{1}
 \newcounter{showSlideNumbers}
 \setcounter{showSlideNumbers}{1}
 \newcounter{showSlideTotal}
@@ -93,6 +149,62 @@
 \slidewidth=\the\paperwidth
 \slideheight=\the\paperheight
 
+\newcommand{\makeProgress}{
+  \ifnum\thepage>1\relax % skip title page
+    \ifnum\showProgressBar=1\relax%
+      % progress bar icon in the middle of the screen
+      \draw[fill=ProgBarBGColor,draw=none] (0,10px) rectangle(\slidewidth,10px+0.25cm);
+      \draw[fill=PrimaryColor,draw=none] (0,10px) rectangle(\progressbar@tmpdim,10px+0.25cm);
+    \fi
+    % bottom info
+    \ifnum\showSectionTitles=1\relax
+      \node[anchor=south west] at(0cm,0.28cm) {\color{TextColor}\tiny\insertsection};
+    \fi
+    % if slide numbers are active
+    \ifnum\showSlideNumbers=1\relax%
+      % if slide totals are active
+      \ifnum\showSlideTotal=1\relax%
+        % draw both slide number and slide total
+        \node[anchor=south east] at(\slidewidth,0.28cm) {\color{TextColor}\tiny\insertframenumber/\inserttotalframenumber};
+      \else
+        \node[anchor=south east] at(\slidewidth,0.28cm) {\color{TextColor}\tiny\insertframenumber};
+      \fi
+    \fi
+    %% \else
+    %%   \ifnum\showSlideNumbers=1\relax%
+    %%     % section title in the bottom left
+    %%     \node[anchor=south west] at(0cm,0.3cm) {\color{PrimaryColor}\tiny\insertsection};
+    %%     % if we're showing slide numbers
+    %%     % if slide totals are active
+    %%     \ifnum\showSlideTotal=1\relax%
+    %%       % slide number and slide total
+    %%       \node[anchor=south east] at(\slidewidth,0.3cm) {\color{PrimaryColor}\tiny\insertframenumber/\inserttotalframenumber};
+    %%     \else
+    %%       \node[anchor=south east] at(\slidewidth,0.3cm) {\color{PrimaryColor}\tiny\insertframenumber};
+    %%     \fi
+    %%   \fi
+    %% \fi
+  \fi
+}
+
+\newcommand{\insertfinalinfo}{\ }
+\newcommand{\finalinfo}[1]{\renewcommand{\insertfinalinfo}{#1}}
+
+\newcommand{\makefinal}{
+  \begin{tikzpicture}
+    % set up the entire slide as the canvas
+    \useasboundingbox (30px,0) rectangle(\the\paperwidth,\the\paperheight);
+    % University logo
+    \node[anchor=north] at (0.5\slidewidth,\slideheight-2cm){\resizebox{!}{3cm}{\insertlogo}};
+
+    % University logo
+    \node[anchor=north] at (0.5\slidewidth,\slideheight-5.5cm){\resizebox{!}{0.5cm}{\spraakbankenlogo}};
+
+    %    \node[anchor=south] at (0.5\slidewidth,1cm){\resizebox{4cm}{!}{\insertfinalinfo}};
+    \node[anchor=north,align=left] at (0.5\slidewidth,\slideheight-6.2cm){\begin{minipage}{\slidewidth}\insertfinalinfo\end{minipage}};
+  \end{tikzpicture}
+}
+
 % draw everything with tikz
 \setbeamertemplate{background}{ % all slides
 	% progress bar stuff
@@ -111,71 +223,29 @@
 		% background
 		\fill[color=BackgroundColor] (0,0) rectangle(\the\paperwidth,\the\paperheight);
 
-		\ifnum\thepage=1\relax % only title slides
-			% primary color rectangle
-			\fill[color=PrimaryColor] (0, 4cm) rectangle(\slidewidth,\slideheight);
-
-			% text (title, subtitle, author, date)
-			\node[anchor=south,text width=\slidewidth-1cm,inner xsep=0.5cm] at (0.5\slidewidth,4cm) {\color{BackgroundColor}\Huge\textbf{\inserttitle}};
-			\node[anchor=north east,text width=\slidewidth-1cm,align=right] at (\slidewidth-0.4cm,4cm) {\color{PrimaryColor}\large\textbf{\insertsubtitle}};
-			\node at (0.5\slidewidth,2cm) {\color{PrimaryColor}\LARGE\insertauthor};
-			\node at (0.5\slidewidth,1.25cm) {\color{PrimaryColor}\Large\insertinstitute};
-			\node[anchor=south east] at(\slidewidth,0cm) {\color{PrimaryColor}\tiny\insertdate};
-		\else % other slides
-			% title bar
-			\fill[color=PrimaryColor] (0, \slideheight-1cm) rectangle(\slidewidth,\slideheight);
-
-			% slide title
-			\node[anchor=north,text width=\slidewidth-0.75cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{BackgroundColor}\huge\textbf{\insertframetitle}};
-
-			% logo (TODO: autoscale; now it expects 350x350
-			\node[anchor=north east] at (\slidewidth-0.25cm,\slideheight+0.06cm){\insertlogo};
-
-			% show progress bar
-			\ifnum \value{showProgressBar}>0\relax%
-				% progress bar icon in the middle of the screen
-				\draw[fill=ProgBarBGColor,draw=none] (0cm,0cm) rectangle(\slidewidth,0.25cm);
-				\draw[fill=PrimaryColor,draw=none] (0cm,0cm) rectangle(\progressbar@tmpdim,0.25cm);
-
-				% bottom info
-				\node[anchor=south west] at(0cm,0.25cm) {\color{PrimaryColor}\tiny\vphantom{lp}\insertsection};
-				% if slide numbers are active
-				\ifnum \value{showSlideNumbers}>0\relax%
-					% if slide totals are active
-					\ifnum \value{showSlideTotal}>0\relax%
-						% draw both slide number and slide total
-						\node[anchor=south east] at(\slidewidth,0.25cm) {\color{PrimaryColor}\tiny\insertframenumber/\inserttotalframenumber};
-					\else
-						\node[anchor=south east] at(\slidewidth,0.25cm) {\color{PrimaryColor}\tiny\insertframenumber};
-					\fi
-				\fi
-			\else
-				% section title in the bottom left
-				\node[anchor=south west] at(0cm,0cm) {\color{PrimaryColor}\tiny\vphantom{lp}\insertsection};
-				% if we're showing slide numbers
-				\ifnum \value{showSlideNumbers}>0\relax%
-					% if slide totals are active
-					\ifnum \value{showSlideTotal}>0\relax%
-						% slide number and slide total
-						\node[anchor=south east] at(\slidewidth,0cm) {\color{PrimaryColor}\tiny\insertframenumber/\inserttotalframenumber};
-					\else
-						\node[anchor=south east] at(\slidewidth,0cm) {\color{PrimaryColor}\tiny\insertframenumber};
-					\fi
-				\fi
-			\fi
-		\fi
+%		\ifnum\thepage>1\relax % only non-title slides
+                
+%		\fi
+                \fill[color=BottomBar] rectangle(\the\paperwidth,10px);
+                \node[anchor=south west] at(40px,-1px) {\color{BottomBarText}\tiny{UNIVERSITY OF GOTHENBURG}};
+                \makeProgress
 	\end{tikzpicture}
 }
 \makeatother
 
+% Handle section pages, only enabled when flag is given
+\ifnum\showSectionPages=1\relax
 \AtBeginSection{\frame{\sectionpage}} % section pages
+\fi
 \setbeamertemplate{section page}
 {
-	\begin{tikzpicture}
+  \begin{tikzpicture}
 		% set up the entire slide as the canvas
 		\useasboundingbox (0,0) rectangle(\slidewidth,\slideheight);
 		\fill[color=BackgroundColor] (-1cm, 2cm) rectangle (\slidewidth, \slideheight+0.1cm);
 		\fill[color=PrimaryColor] (-1cm, 0.5\slideheight-1cm) rectangle(\slidewidth, 0.5\slideheight+1cm);
-		\node[text width=\the\paperwidth-1cm,align=center] at (0.4\slidewidth, 0.5\slideheight) {\color{BackgroundColor}\Huge\textbf{\insertsection}};
-	\end{tikzpicture}
+		\node[text width=\the\paperwidth-1cm,align=center] at (0.4\slidewidth, 0.5\slideheight) {\color{FrameTitleColor}\Huge\textbf{\insertsection}};
+  \end{tikzpicture}
 }
+
+
