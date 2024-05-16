@@ -1,9 +1,10 @@
 \NeedsTeXFormat{LaTeX2e}
-\ProvidesPackage{beamerthemelucid}[2024/05/10 Språkbanken-themed, GU-inspired, lucid-based beamer template]
+\ProvidesPackage{beamerthemelucidsbx}[2024/05/10 Språkbanken-themed, GU-inspired, lucid-based beamer template]
 
 \RequirePackage{tikz}
 \RequirePackage{fontspec}
 \RequirePackage{xcolor}
+\RequirePackage{caption}
 
 \usetikzlibrary{calc}
 
@@ -84,8 +85,8 @@
     \node[anchor=north west] at (0.75cm,\slideheight+5px){\resizebox{1.5cm}{!}{\insertlogo}};
     
     % text (title, subtitle, author, date)
-    \node[anchor=south,text width=\slidewidth-1cm,inner xsep=0.5cm] at (0.5\slidewidth,6.5cm) (title) {\color{TitleColor}\Huge{\inserttitle}};
-    \node[anchor=north east,text width=\slidewidth-1cm,align=right] at (\slidewidth-0.4cm,6cm) (subtitle) {\color{PrimaryColor}\large{\insertsubtitle}};
+    \node[anchor=south west] at (0.75cm,6.5cm) (title) {\color{TitleColor}\Huge{\inserttitle}}; %,text width=\slidewidth-1cm,inner xsep=0.5cm
+    \node[anchor=north west] at (0.75cm,6cm) (subtitle) {\color{SubtitleColor}\large{\insertsubtitle}};
     \node[anchor=north east] at (\slidewidth-0.4cm,5cm) (author) {\LARGE\insertauthor};
     \node[anchor=north east]  at (\slidewidth-0.4cm,4cm) (institute) {\insertinstitute};
     \node[anchor=north east] at (\slidewidth-0.4cm,3cm) (date) {\large\insertdate};
@@ -110,6 +111,8 @@
 % TODO: somehow this doesn't work for md-generated slides
 %\setbeamertemplate{caption}{\tiny\insertcaption}
 %\setbeamertemplate{caption label separator}{}
+% Remove the "Figure" from image captions
+\captionsetup{labelformat=empty}
 
 % add some space below the footnotes so they don't end up on the progress bar
 \setbeamertemplate{footnote}{ 
@@ -170,20 +173,6 @@
         \node[anchor=south east] at(\slidewidth,0.28cm) {\color{TextColor}\tiny\insertframenumber};
       \fi
     \fi
-    %% \else
-    %%   \ifnum\showSlideNumbers=1\relax%
-    %%     % section title in the bottom left
-    %%     \node[anchor=south west] at(0cm,0.3cm) {\color{PrimaryColor}\tiny\insertsection};
-    %%     % if we're showing slide numbers
-    %%     % if slide totals are active
-    %%     \ifnum\showSlideTotal=1\relax%
-    %%       % slide number and slide total
-    %%       \node[anchor=south east] at(\slidewidth,0.3cm) {\color{PrimaryColor}\tiny\insertframenumber/\inserttotalframenumber};
-    %%     \else
-    %%       \node[anchor=south east] at(\slidewidth,0.3cm) {\color{PrimaryColor}\tiny\insertframenumber};
-    %%     \fi
-    %%   \fi
-    %% \fi
   \fi
 }
 
@@ -195,13 +184,13 @@
     % set up the entire slide as the canvas
     \useasboundingbox (30px,0) rectangle(\the\paperwidth,\the\paperheight);
     % University logo
-    \node[anchor=north] at (0.5\slidewidth,\slideheight-2cm){\resizebox{!}{3cm}{\insertlogo}};
+    \node[anchor=north] at (0.5\slidewidth,\slideheight-1cm){\resizebox{!}{3cm}{\insertlogo}};
 
     % University logo
-    \node[anchor=north] at (0.5\slidewidth,\slideheight-5.5cm){\resizebox{!}{0.5cm}{\spraakbankenlogo}};
+    \node[anchor=north] at (0.5\slidewidth,\slideheight-4.2cm){\resizebox{!}{0.5cm}{\spraakbankenlogo}};
 
     %    \node[anchor=south] at (0.5\slidewidth,1cm){\resizebox{4cm}{!}{\insertfinalinfo}};
-    \node[anchor=north,align=left] at (0.5\slidewidth,\slideheight-6.2cm){\begin{minipage}{\slidewidth}\insertfinalinfo\end{minipage}};
+    \node[anchor=north,align=left] at (0.5\slidewidth,\slideheight-5cm){\begin{minipage}{\slidewidth}\insertfinalinfo\end{minipage}};
   \end{tikzpicture}
 }
 
@@ -247,5 +236,3 @@
 		\node[text width=\the\paperwidth-1cm,align=center] at (0.4\slidewidth, 0.5\slideheight) {\color{FrameTitleColor}\Huge\textbf{\insertsection}};
   \end{tikzpicture}
 }
-
-
