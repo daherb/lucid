@@ -1,0 +1,43 @@
+\documentclass[aspectratio=169]{beamer}
+
+%\usetheme[dark,slideNumbers,slideTotal,sectionPages,sectionTitles,progressBar]{lucid}
+\usetheme{lucidsbx}
+\usefonttheme{professionalfonts} % default family is serif
+
+\usepackage{qrcode}
+
+\title{The title}
+\subtitle{bla bla bla bla bla bla blubb blubb blubb}
+\author{The Author}
+\institute{University of Gothenburg}
+\logo{\includegraphics{LO_GUeng_CMYK_flag.pdf}}
+\titlegraphic{\includegraphics[angle=90]{LO_GUeng_CMYK_flag.pdf}}
+
+% Info shown on the final slide below the logo
+\finalinfo{
+  \centering
+  \qrcode[height=1.5cm,nolink]{https://github.com/daherb/lucid/} \\[1em]
+  
+  {\LARGE Thanks for your attention}
+}
+
+\begin{document}
+\begin{frame}
+  \maketitle
+\end{frame}
+\section{Test section}
+\begin{frame}{Test}
+  Foo
+  \begin{itemize}
+  \item bar
+  \item baz
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+  \makefinal
+
+  
+\end{frame}
+  
+\end{document}
