@@ -31,7 +31,6 @@
 \DeclareOption*{\PackageWarning{beamerthemelucid}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
-\setsansfont{Liberation Sans}[SmallCapsFont={RobotoMono Nerd Font Propo}]
 \ifnum\darkMode=1\relax
   \usecolortheme{lucid-dark}
 \else
@@ -43,12 +42,6 @@
 \setbeamercolor{section in toc}{fg=PrimaryColor}
 \setbeamercolor{structure}{fg=SecondaryColor}
 \hypersetup{colorlinks,linkcolor=,urlcolor=SecondaryColor}
-
-% set fonts
-\setbeamerfont{itemize/enumerate body}{size=\large}
-\setbeamerfont{itemize/enumerate subbody}{size=\normalsize}
-\setbeamerfont{itemize/enumerate subsubbody}{size=\small}
-
 % make pixelated bullets
 \setbeamertemplate{itemize item}{
 	\tikz{
