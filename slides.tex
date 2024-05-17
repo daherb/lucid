@@ -1,43 +1,52 @@
 \documentclass[aspectratio=169]{beamer}
 
-%\usetheme[dark,slideNumbers,slideTotal,sectionPages,sectionTitles,progressBar]{lucid}
-\usetheme{lucidsbx}
-\usefonttheme{professionalfonts} % default family is serif
+\usetheme[dark,slideNumbers,slideTotal,sectionPages,sectionTitles,progressBar]{lucidsbx}
+%\usetheme{lucidsbx}
 
 \usepackage{qrcode}
 
 \title{The title}
-\subtitle{bla bla bla bla bla bla blubb blubb blubb}
+\subtitle{The subtitle}
 \author{The Author}
 \institute{University of Gothenburg}
-\logo{\includegraphics{LO_GUeng_CMYK_flag.pdf}}
-\titlegraphic{\includegraphics[angle=90]{LO_GUeng_CMYK_flag.pdf}}
+
+\titlegraphic{\includegraphics{title-graphics.pdf}}
 
 % Info shown on the final slide below the logo
 \finalinfo{
   \centering
-  \qrcode[height=1.5cm,nolink]{https://github.com/daherb/lucid/} \\[1em]
+  \qrcode[height=1.5cm]{https://spraakbanken.gu.se} \\[1em]
   
   {\LARGE Thanks for your attention}
 }
 
 \begin{document}
+
+% Title slide
 \begin{frame}
   \maketitle
 \end{frame}
+
 \section{Test section}
-\begin{frame}{Test}
-  Foo
+
+\begin{frame}{Test slide}
+  An item list
   \begin{itemize}
-  \item bar
-  \item baz
+  \item item 1
+  \item item 2
   \end{itemize}
 \end{frame}
 
+\begin{frame}[fragile]{Test slide with graphics}
+  \begin{figure}
+    \includegraphics[height=0.6\textheight]{sample-graphics.pdf}
+    \caption{A sample caption (the ``Figure'' part is hidden)}
+  \end{figure}
+\end{frame}
+
+% Final slide
 \begin{frame}
   \makefinal
-
-  
 \end{frame}
   
 \end{document}
