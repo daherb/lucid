@@ -74,9 +74,9 @@
 \setbeamertemplate{title page}{
   \begin{tikzpicture}
     % set up the entire slide as the canvas
-    \useasboundingbox (30px,0) rectangle(\the\paperwidth,\the\paperheight);
+    \useasboundingbox (30pt,0) rectangle(\the\paperwidth,\the\paperheight);
     % University logo
-    \node[anchor=north west] at (0.75cm,\slideheight+5px){\resizebox{1.5cm}{!}{\insertlogo}};
+    \node[anchor=north west] at (0.75cm,\slideheight+5pt){\resizebox{1.5cm}{!}{\insertlogo}};
     
     % text (title, subtitle, author, date)
     \node[anchor=south west] at (0.75cm,6.5cm) (title) {\color{TitleColor}\usebeamerfont{title}{\inserttitle}}; %,text width=\slidewidth-1cm,inner xsep=0.5cm
@@ -85,7 +85,7 @@
     \node[anchor=north east]  at (\slidewidth-0.4cm,4cm) (institute) {\insertinstitute};
     \node[anchor=north east] at (\slidewidth-0.4cm,3cm) (date) {\large\insertdate};
     \node[anchor=north west] at (1cm,5cm) (graphics) {\resizebox{!}{4cm}{\inserttitlegraphic}};
-    \node[anchor=south east] at (\slidewidth-0.4cm,10px+0.25cm) (sblogo) {\resizebox{!}{0.5cm}{\spraakbankenlogo}};
+    \node[anchor=south east] at (\slidewidth-0.4cm,10pt+0.25cm) (sblogo) {\resizebox{!}{0.5cm}{\spraakbankenlogo}};
   \end{tikzpicture}
 }
 
@@ -93,9 +93,9 @@
 \setbeamertemplate{frametitle}{
   \begin{tikzpicture}
     % set up the entire slide as the canvas
-    \useasboundingbox (30px,\slideheight-1cm) rectangle(\slidewidth+5px,\slideheight);
+    \useasboundingbox (30pt,\slideheight-1cm) rectangle(\slidewidth+5pt,\slideheight);
     % title bar 
-    \fill[color=PrimaryColor] (0, \slideheight-1cm) rectangle(\slidewidth+5px,\slideheight);
+    \fill[color=PrimaryColor] (0, \slideheight-1cm) rectangle(\slidewidth+5pt,\slideheight);
     % slide title
     \node[anchor=north,text width=\slidewidth-0.75cm,inner xsep=0.5cm,inner ysep=0.25cm] at (0.5\slidewidth,\slideheight) {\color{FrameTitleColor}\huge\textbf{\insertframetitle}};
   \end{tikzpicture}
@@ -150,8 +150,8 @@
   \ifnum\thepage>1\relax % skip title page
     \ifnum\showProgressBar=1\relax%
       % progress bar icon in the middle of the screen
-      \draw[fill=ProgBarBGColor,draw=none] (0,10px) rectangle(\slidewidth,10px+0.25cm);
-      \draw[fill=PrimaryColor,draw=none] (0,10px) rectangle(\progressbar@tmpdim,10px+0.25cm);
+      \draw[fill=ProgBarBGColor,draw=none] (0,10pt) rectangle(\slidewidth,10pt+0.25cm);
+      \draw[fill=PrimaryColor,draw=none] (0,10pt) rectangle(\progressbar@tmpdim,10pt+0.25cm);
     \fi
     % bottom info
     \ifnum\showSectionTitles=1\relax
@@ -176,7 +176,7 @@
 \newcommand{\makefinal}{
   \begin{tikzpicture}
     % set up the entire slide as the canvas
-    \useasboundingbox (30px,0) rectangle(\the\paperwidth,\the\paperheight);
+    \useasboundingbox (30pt,0) rectangle(\the\paperwidth,\the\paperheight);
     % University logo
     \node[anchor=north] at (0.5\slidewidth,\slideheight-1cm){\resizebox{!}{3cm}{\insertlogo}};
 
@@ -209,8 +209,8 @@
 %		\ifnum\thepage>1\relax % only non-title slides
                 
 %		\fi
-                \fill[color=BottomBar] rectangle(\the\paperwidth,10px);
-                \node[anchor=south west] at(40px,-1px) {\color{BottomBarText}\tiny{UNIVERSITY OF GOTHENBURG}};
+                \fill[color=BottomBar] rectangle(\the\paperwidth,10pt);
+                \node[anchor=south west] at(40pt,-1pt) {\color{BottomBarText}\tiny{UNIVERSITY OF GOTHENBURG}};
                 \makeProgress
 	\end{tikzpicture}
 }
