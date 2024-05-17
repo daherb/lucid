@@ -79,9 +79,9 @@
     \node[anchor=north west] at (0.75cm,\slideheight+5px){\resizebox{1.5cm}{!}{\insertlogo}};
     
     % text (title, subtitle, author, date)
-    \node[anchor=south west] at (0.75cm,6.5cm) (title) {\color{TitleColor}\Huge{\inserttitle}}; %,text width=\slidewidth-1cm,inner xsep=0.5cm
-    \node[anchor=north west] at (0.75cm,6cm) (subtitle) {\color{SubtitleColor}\large{\insertsubtitle}};
-    \node[anchor=north east] at (\slidewidth-0.4cm,5cm) (author) {\LARGE\insertauthor};
+    \node[anchor=south west] at (0.75cm,6.5cm) (title) {\color{TitleColor}\usebeamerfont{title}{\inserttitle}}; %,text width=\slidewidth-1cm,inner xsep=0.5cm
+    \node[anchor=north west] at (0.75cm,6cm) (subtitle) {\color{SubtitleColor}\usebeamerfont{subtitle}{\insertsubtitle}};
+    \node[anchor=north east] at (\slidewidth-0.4cm,5cm) (author) {\usebeamerfont{author}{\insertauthor}};
     \node[anchor=north east]  at (\slidewidth-0.4cm,4cm) (institute) {\insertinstitute};
     \node[anchor=north east] at (\slidewidth-0.4cm,3cm) (date) {\large\insertdate};
     \node[anchor=north west] at (1cm,5cm) (graphics) {\resizebox{!}{4cm}{\inserttitlegraphic}};
