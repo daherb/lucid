@@ -1,44 +1,29 @@
-# lucid
-A modern Beamer theme you can use without installing dozens of CTAN packages.
+# lucidsbx
+A modern Beamer theme you can use without installing dozens of CTAN packages. It is modified to match the official University of Gothenburg template with added Språkbanken effects.
 
-I really, really hate all PowerPoint-like programs but also dislike most Beamer templates, so back in my third year of university I invested one night in making my own.
-I didn't understand anything about CTAN packages, `.sty` files and `tikz` (and to a large extent I still don't), but [Beamer-Theme-Execushares](https://github.com/hamaluik/Beamer-Theme-Execushares) provided an excellent starting point and the resulting theme served me well throughout the last 5 years - I only recently switched to my current institution's (Språkbanken Text, University of Gothenburg) colors and logo and fixed a few things that kept annoying me. 
-There are still a few [issues](https://github.com/harisont/Beamer-mhthm/issues) I'd like to address, but because I find writing style files to be a nightmare PRs are more than ever welcome.  
+It is based on [harisont's lucid template](https://github.com/harisont/lucid) which in turn is based on  [Beamer-Theme-Execushares](https://github.com/hamaluik/Beamer-Theme-Execushares).
 
 ## Usage
-You can of course use lucid to write your presentations in LaTeX and compile them with `pdflatex`. 
-A fairly standard `texlive` installation should provide everything you need, as the only package required is `tikz`.
+You can of course use lucid to write your presentations in LaTeX and compile them with `lualatex` or `xelatax`. 
+A fairly standard `texlive` installation should provide everything you need. The packages required are `tikz`, `fontspec`, `xcolor` and `caption`. In addition the fonts `Liberation Sans` as well as `RobotoMono Nerd Font Propo` (for small caps) is used. The sample document also requires the `qrcode` package.
 
-### If you hate writing presentations in LaTeX
-However, __I warmly recommend that you write your presentations in Markdown and generate beamer slides with [pandoc](https://github.com/jgm/pandoc)__.
-This is a much easier way to obtain perfectly fine slides in 99% of the cases, and allows for LaTeX injections that fix the remaining 1% of things that you can't express in Markdown. 
-For instance, you can add a `\pause` wherever you want.
+To use the template in your own presentation copy all the `.sty` files as well as the `logos/` folder and add `\usetheme{lucidsbx}` (which can be configured using the options described below) to your `tex` file
 
-I usually just write regular Markdown using `#` for each new section and `##` for each new slide, add a metadata section in the beginning of the file, for instance
+The template can easily be configured and adjusted
 
-```yaml
----
-title: "The title"
-subtitle: "a possibly very long subtitle" # OPTIONAL
-author: "My Name" # OPTIONAL
-theme: "mhthm"
-logo: "gu.png" # OPTIONAL - if present, it should as of now be the path to a 300x300 image
-date: "the date" # OPTIONAL - will appear on the title page on the bottom right
-institute: "Språkbanken Text, University of Gothenburg" # OPTIONAL
----
-```
+- The template supports a set of options:
+  - `dark`: use dark mode instead of default light mode
+  - `progressBar`: show a progress bar at the bottom above the black line
+  - `slideNumbers`: show the number of the current slide
+  - `slideTotal`: also show the total number of slides next to the number of the current slide
+  - `sectionPages`: how a separate slide with the title in the beginning of each section
+  - `sectionTitles`: show the title of the current section at the bottom of the screen
+- The default University of Gothenburg logo can be replaced using the `\logo` command
+- The final slide can be modified using the `\finalinfo` command and created using the `\makefinal` command (See example)
+- The fonts can be changed in the the file `beamerfontlucidsbx.sty`
+- The color schemes can be changed in `beamerfontlucidsbx.sty` or `beamerfontlucidsbx-dark.sty`.
 
-and then run 
-
-```
-pandoc slides.md -t beamer --slide-level 2 -o slides.pdf
-```
-
-to generate the PDF.
-
-See [`slides.pdf`](slides.pdf) for some example pandoc-generated slides and [`slides.md`](slides.md) to take a look at the very simple source code.
-
-For further information about the pandoc + beamer combo, I think [alexeygumirov](https://github.com/alexeygumirov/pandoc-beamer-how-to) is the most exhaustive source. A more compact tutorial is available [here](https://ashwinschronicles.github.io/beamer-slides-using-markdown-and-pandoc?utm_source=pocket_reader). 
+If you don't like writing slides directly in LaTeX you can use markdown as described in the harisont's [README.md](https://github.com/harisont/lucid/blob/master/README.md)
 
 ## Namesake
 In Italian, _lucidi_ is the word that indicates slides meant for old-fashioned overhead projectors.
