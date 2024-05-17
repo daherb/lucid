@@ -28,13 +28,13 @@
 \DeclareOption{slideTotal}{\showSlideTotal=1}
 \DeclareOption{sectionPages}{\showSectionPages=1}
 \DeclareOption{sectionTitles}{\showSectionTitles=1}
-\DeclareOption*{\PackageWarning{beamerthemelucid}{Unknown ‘\CurrentOption’}}
+\DeclareOption*{\PackageWarning{beamerthemelucidsbx}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
 \ifnum\darkMode=1\relax
-  \usecolortheme{lucid-dark}
+  \usecolortheme{lucidsbx-dark}
 \else
-  \usecolortheme{lucid}
+  \usecolortheme{lucidsbx}
 \fi
 % make pixelated bullets
 \setbeamertemplate{itemize item}{
