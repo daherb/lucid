@@ -31,6 +31,9 @@
 \DeclareOption*{\PackageWarning{beamerthemelucidsbx}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
+% Set default logo
+\ifbeamertemplateempty{logo}{\logo{\includegraphics{LO_GUeng_CMYK_flag.pdf}}}{}
+
 % Load font definition
 \usepackage{beamerfontlucidsbx}
 \ifnum\darkMode=1\relax
