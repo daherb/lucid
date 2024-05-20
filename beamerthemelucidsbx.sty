@@ -31,9 +31,6 @@
 \DeclareOption*{\PackageWarning{beamerthemelucidsbx}{Unknown ‘\CurrentOption’}}
 \ProcessOptions\relax
 
-% Set default logo
-\ifbeamertemplateempty{logo}{\logo{\includegraphics{logos/LO_GUeng_CMYK_flag.pdf}}}{}
-
 % Load font definition
 \usepackage{beamerfontlucidsbx}
 
@@ -43,6 +40,12 @@
 \else
   \usecolortheme{lucidsbx}
 \fi
+
+% Set default logo
+\ifbeamertemplateempty{logo}{\logo{\includegraphics{logos/LO_GUeng_CMYK_flag.pdf}}}{}
+% Set defaut title image (an empty placeholder)
+\ifbeamertemplateempty{titlegraphic}{}{\titlegraphic{\begin{tikzpicture}\fill[use as bounding box,fill=BackgroundColor] (0,0) rectangle (1,1);\end{tikzpicture}}}
+
 % make pixelated bullets
 \setbeamertemplate{itemize item}{
 	\tikz{
