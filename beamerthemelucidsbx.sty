@@ -84,10 +84,10 @@
     % text (title, subtitle, author, date)
     \node[anchor=north west,align=left,text width=\the\paperwidth-1cm,inner sep=5pt] at (0.75cm,7.5cm) (title) {\color{TitleColor}\usebeamerfont{title}{\inserttitle}}; %,text width=\slidewidth-1cm,inner xsep=0.5cm
     \node[anchor=north west,align=left] at (0.75cm,5.5cm) (subtitle) {\color{SubtitleColor}\usebeamerfont{subtitle}{\insertsubtitle}};
-    \node[anchor=north east,align=left] at (\slidewidth-0.4cm,5cm) (author) {\usebeamerfont{author}{\insertauthor}};
-    \node[anchor=north east,align=left]  at (\slidewidth-0.4cm,4cm) (institute) {\insertinstitute};
-    \node[anchor=north east,align=left] at (\slidewidth-0.4cm,3cm) (date) {\large\insertdate};
-    \node[anchor=north west] at (1cm,5cm) (graphics) {\resizebox{!}{4cm}{\inserttitlegraphic}};
+    \node[anchor=north east,align=right,text width=0.7\slidewidth] at (\slidewidth-0.4cm,5cm) (author) {\usebeamerfont{author}{\insertauthor}};
+    \node[anchor=north east,align=right,text width=0.7\slidewidth] at (\slidewidth-0.4cm,2.4cm) (date) {\usebeamerfont{date}\insertdate};
+    \node[anchor=north east,align=right,text width=0.7\slidewidth]  at (\slidewidth-0.4cm,4cm) (institute) {\usebeamerfont{institute}\insertinstitute};
+    \node[anchor=north west] at (0.75cm,5cm) (graphics) {\resizebox{!}{4cm}{\inserttitlegraphic}};
     \node[anchor=south east] at (\slidewidth-0.4cm,10pt+0.25cm) (sblogo) {\resizebox{!}{0.5cm}{\spraakbankenlogo}};
   \end{tikzpicture}
 }
